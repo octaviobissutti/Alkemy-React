@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useHistory } from 'react-router';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
+import { Container, Row, Col } from "react-bootstrap";
 
 const Login = () => {
   const [successForm, setSuccesForm] = useState(false);
+  const history = useHistory();
 
   return (
     <div>
@@ -14,36 +17,33 @@ const Login = () => {
         }}
         validate={(values) => {
           let errors = {};
-
           if (!values.email) {
             errors.email = "Email is required";
-          } else if (
-            !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
-              values.email
-            )
-          ) {
+          } else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(values.email)) { 
             errors.email = "Email is invalid";
-          }
+          }  
           if (!values.password) {
             errors.password = "Password is required";
           }
-          //   else if (
-          //     !/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(values.password)
-          //   ) {
-          //     errors.password =
-          //       "Password requires 8-16 digits, at least one number and one upper case";
-          //   }
           return errors;
         }}
         onSubmit={async (values, { resetForm }) => {
           const { ...data } = values; //Averiguar porqué necesita destructurar??
-          const res = await axios.post(
-            "http://challenge-react.alkemy.org/",
-            data
-          );
-          resetForm();
-          setSuccesForm(true);
-          setTimeout(() => setSuccesForm(false), 5000);
+          try {
+            const response = await axios.post("http://challenge-react.alkemy.org/", data);
+            if(response && response.data) {
+            const token = response.data;
+            window.localStorage.setItem('user', JSON.stringify(token));
+            resetForm();
+            setSuccesForm(true);
+            setTimeout(() => setSuccesForm(false), 5000);
+            // history.push('/');
+            }
+
+          } catch(err) {
+             alert('Invalid credentials')
+             resetForm();
+          }
         }}
       >
         {({ errors }) => (
@@ -53,23 +53,17 @@ const Login = () => {
                 Email
               </label>
               <Field id="email" name="email" />
-              <ErrorMessage
-                name="email"
-                component={() => <div>{errors.email}</div>}
-              />
+              <ErrorMessage name="email"     component={() => <div>{errors.email}</div>}/>
             </div>
             <div>
               <label htmlFor="password" placeholder="Type your password">
                 Password
               </label>
               <Field type="password" id="password" name="password" />
-              <ErrorMessage
-                name="password"
-                component={() => <div>{errors.password}</div>}
-              />
+              <ErrorMessage name="password" component={() => <div>{errors.password}</div>}/>
             </div>
             <button type="submit">Submit</button>
-            {successForm && <p>Success submit!</p>}
+            {successForm && <img src="https://fondosmil.com/fondo/14644.jpg" alt="superman" width="100%" height="100%"/>}
           </Form>
         )}
       </Formik>
