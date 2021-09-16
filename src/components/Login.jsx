@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from 'react-router';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
-import { Container, Row, Col } from "react-bootstrap";
-
+import "./Login.css";
 const Login = () => {
   const [successForm, setSuccesForm] = useState(false);
   const history = useHistory();
@@ -47,24 +46,28 @@ const Login = () => {
         }}
       >
         {({ errors }) => (
-          <Form>
-            <div>
+          <div className="modal-dialog text-center">
+            <div className="col-sm 8 main-section">
+          <Form className="col-12">
+            <div className="form-group">
               <label htmlFor="email" placeholder="Type your email">
                 Email
               </label>
-              <Field id="email" name="email" />
-              <ErrorMessage name="email"     component={() => <div>{errors.email}</div>}/>
+              <Field className="form-control" id="email" name="email"/>
+              <ErrorMessage name="email" component={() => <div>{errors.email}</div>}/>
             </div>
-            <div>
+            <div className="form-group">
               <label htmlFor="password" placeholder="Type your password">
                 Password
               </label>
-              <Field type="password" id="password" name="password" />
+              <Field className="form-control" type="password" id="password" name="password" />
               <ErrorMessage name="password" component={() => <div>{errors.password}</div>}/>
             </div>
-            <button type="submit">Submit</button>
+            <button className="btn btn-primary" type="submit">Submit</button>
             {successForm && <img src="https://fondosmil.com/fondo/14644.jpg" alt="superman" width="100%" height="100%"/>}
           </Form>
+          </div>
+          </div>
         )}
       </Formik>
     </div>
@@ -72,3 +75,4 @@ const Login = () => {
 };
 
 export default Login;
+
