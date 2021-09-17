@@ -1,12 +1,19 @@
 import "./App.css";
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from "./components/Login";
+import React from "react";
+import Home from "./components/Home";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Alkemy app</h1>
-      <Login/>
-    </div>
+    <BrowserRouter>
+    <React.Fragment>
+      <Switch>
+    <Route exact path="/Home" component={Home} />
+    <Route path ="/Login" component={Login} />
+    </Switch>
+  </React.Fragment>
+    </BrowserRouter>
   );
 }
 

@@ -53,14 +53,14 @@ const Login = () => {
               <label htmlFor="email" placeholder="Type your email">
                 Email
               </label>
-              <Field className="form-control" id="email" name="email"/>
+              <Field className="form-control" name="email" id="email"/>
               <ErrorMessage name="email" component={() => <div>{errors.email}</div>}/>
             </div>
             <div className="form-group">
               <label htmlFor="password" placeholder="Type your password">
                 Password
               </label>
-              <Field className="form-control" type="password" id="password" name="password" />
+              <Field className="form-control" type="password"  name="password" id="password"/>
               <ErrorMessage name="password" component={() => <div>{errors.password}</div>}/>
             </div>
             <button className="btn btn-primary" type="submit">Submit</button>
@@ -75,4 +75,5 @@ const Login = () => {
 };
 
 export default Login;
+
 
