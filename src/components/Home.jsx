@@ -1,25 +1,47 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+// import { useParams } from 'react-router-dom';
+import { findById, searchByName } from '../Redux/Actions/actions';
 
-const Home = () => {
-    const [hero, setHero] = useState([]);
-    const ACCESS_TOKEN= 10227175874088628;
-    const BASE_URL= "https://superheroapi.com/api.php/";
-    // const URL = `${BASE_URL}${ACCESS_TOKEN}`;
+const Home = ({match}) => {
+    const myTeam = useSelector((state) => state.team);
+    const detail = useSelector((state) => state.getDetails);
+    const fixedMatch = useRef(match.params.id);
+    const dispatch = useDispatch();
+    // const [hero, setHero] = useState([]);
+    // const ACCESS_TOKEN= 10227175874088628;
+    // const BASE_URL= "https://superheroapi.com/api.php/";
+    // // const URL = `${BASE_URL}${ACCESS_TOKEN}`;
+    // // const { id }  = useParams();
+    // const gettingId = async () => {
+    //     const id = [1,2,3,4,5,6];
+    //     let newHero = []; 
+    //     for(let i = 0; i < id.length; i++) {
+    //         console.log('I: ', i);
+    //         const api = await axios.get(`${BASE_URL}${ACCESS_TOKEN}/${id[i]}`);
+    //         const response = api.data;
+    //         console.log('RESPONSE: ', response);
+    //         //  newHero = [...hero, response];
+    //         newHero.push(response);
+    //         // const finalHero = [...hero, newHero]
+    //         hero.concat(newHero);
+    //          console.log('NEWHERO: ', hero);
+    //         // console.log(finalHero)
+             
+            
+    //         }
+    //         setHero(newHero);
+    //         // console.log(setHero())
+    //         // return newHero;
+    // }
+  
 
 
 
     useEffect(() => {
-        async function apiCall() {
-            const api = await axios.get(`${BASE_URL}${ACCESS_TOKEN}/1`);
-            const response = api.data;
-            console.log(response);
-            if(response) {
-                const newHero = [...hero, response];
-                setHero(newHero);
-            }
-            }
-            apiCall();
+    //   dispatch(searchByName())
+    dispatch(findById(fixedMatch.current))
     }, [])
     
 
@@ -30,7 +52,7 @@ const Home = () => {
     return (
         <div>
             {
-             hero?.length > 0 && hero.map((el) => <ul>
+             detail?.length > 0 && detail?.map((el) => <ul>
                  <li>Name: {el.name}</li>
                  <li>Gender: {el.appearance.gender}</li>
                  <li>Id:{el.id}</li>
@@ -42,12 +64,12 @@ const Home = () => {
                  
                  ) 
                     
-                
 
             }
             
         </div>
     )
 }
+
 
 export default Home
