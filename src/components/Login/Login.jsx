@@ -23,6 +23,8 @@ const Login = () => {
           }  
           if (!values.password) {
             errors.password = "Password is required";
+          } else if(values.password.length !== 5) {
+            errors.password = "Password requires 5 letters";
           }
           return errors;
         }}

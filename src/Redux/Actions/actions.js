@@ -1,6 +1,13 @@
 import axios from "axios";
-const BASE_URL = "https://superheroapi.com/api.php/";
-const ACCESS_TOKEN = 10227175874088628;
+
+
+import {
+  GET_BY_ID,
+  GET_BY_NAME,
+  BASE_URL,
+  ACCESS_TOKEN,
+
+} from '../Constants/constants'
 
 //GET BY ID
 export const findById = (id) => async (dispatch) => {
@@ -9,7 +16,7 @@ export const findById = (id) => async (dispatch) => {
     const res = apiCall.data;
     console.log(res);
     dispatch({
-      type: "GET_BY_ID",
+      type: GET_BY_ID,
       payload: res,
     });
   } catch (err) {
@@ -18,16 +25,21 @@ export const findById = (id) => async (dispatch) => {
 };
 
 //GET BY NAME
-export const searchByName = (name) => async (dispatch) => {
+export const searchByName = (value) => async (dispatch) => {
+  console.log('NAME: ', value);
     try {
-    const getName = await axios.get(`${BASE_URL}${ACCESS_TOKEN}/search/${name}`);
-    const res = getName.data;
+      const { heroName } = value;
+    const getName = await axios.get(`${BASE_URL}${ACCESS_TOKEN}/search/${heroName}`);
+    // const getName = await axios.get(`https://superheroapi.com/api.php/10227175874088628/search/batman`)
+    const res = getName.data.results;
     console.log(res);
     dispatch({
-        type: "GET_BY_NAME",
+        type: GET_BY_NAME,
         payload: res
     })
     } catch(err) {
         console.log(err)
     }
 }
+
+
