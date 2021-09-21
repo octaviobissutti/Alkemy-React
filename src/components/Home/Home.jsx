@@ -4,6 +4,7 @@ import axios from 'axios';
 // import { useParams } from 'react-router-dom';
 // import { findById, searchByName } from '../../Redux/Actions/actions';
 import Search from '../Search/Search';
+import HeroInfo from '../HeroInfo/HeroInfo';
 const Home = () => {
 
 
@@ -13,6 +14,7 @@ const Home = () => {
               <h1>Welcome to your team</h1>
                  <div>
                  <Search />
+                 <HeroInfo />
                     </div>
 
             

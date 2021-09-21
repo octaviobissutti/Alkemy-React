@@ -30,7 +30,6 @@ export const searchByName = (value) => async (dispatch) => {
     try {
       const { heroName } = value;
     const getName = await axios.get(`${BASE_URL}${ACCESS_TOKEN}/search/${heroName}`);
-    // const getName = await axios.get(`https://superheroapi.com/api.php/10227175874088628/search/batman`)
     const res = getName.data.results;
     console.log(res);
     dispatch({
@@ -41,5 +40,7 @@ export const searchByName = (value) => async (dispatch) => {
         console.log(err)
     }
 }
+
+
 
 

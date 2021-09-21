@@ -1,10 +1,9 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { searchByName } from "../../Redux/Actions/actions";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const Search = () => {
-//   const search = useSelector((state) => state.heroes);
   const dispatch = useDispatch();
 
   return (
