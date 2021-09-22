@@ -7,3 +7,5 @@ export const ERROR_TEAM = "ERROR_TEAM";
 export const SAVE_TEAM = "SAVE_TEAM";
 export const DELETE_HERO = "DELETE_HERO";
 export const POWER_STATS_TEAM = "POWER_STATS_TEAM";
+export const RESET_HERO_ACTION = "RESET_HERO_ACTION";
+export const HEIGHT_WEIGHT = "HEIGHT_WEIGHT";

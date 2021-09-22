@@ -1,4 +1,4 @@
-import { GET_BY_ID, GET_BY_NAME, SAVE_TEAM, DELETE_HERO, POWER_STATS_TEAM } from "../Constants/constants";
+import { GET_BY_ID, GET_BY_NAME, SAVE_TEAM, DELETE_HERO, POWER_STATS_TEAM, RESET_HERO_ACTION, HEIGHT_WEIGHT } from "../Constants/constants";
 
 const initialState = {
   team: [],
@@ -72,7 +72,14 @@ const rootReducer = (state = initialState, action) => {
                 combat: state.powerstats.combat + Number(action.payload.combat),
               },
             };
-
+            case RESET_HERO_ACTION:
+                return { ...initialState };
+              case HEIGHT_WEIGHT:
+                return {
+                  ...state,
+                  weightTeam: action.payload.weight.toFixed(2),
+                  heightTeam: action.payload.height.toFixed(2),
+                };
     default:
       return state;
   }

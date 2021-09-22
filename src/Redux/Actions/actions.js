@@ -8,7 +8,11 @@ import {
   GET_BY_NAME,
   ERROR_HERO,
   ERROR_TEAM,
-  SAVE_TEAM
+  SAVE_TEAM,
+  DELETE_HERO,
+  POWER_STATS_TEAM,
+  HEIGHT_WEIGHT,
+  RESET_HERO_ACTION
 
 } from '../Constants/constants'
 
@@ -135,4 +139,50 @@ export const addHeroToTeamAction = (id) => (dispatch, getState) => {
       });
     }
   }
+};
+
+export const deleteHeroAction = (id) => (dispatch) => {
+  dispatch({
+    type: DELETE_HERO,
+    payload: id,
+  });
+};
+
+
+export const PowerstasTeam = () => (dispatch, getState) => {
+  const { team } = getState();
+  var height = 0;
+  var weight = 0;
+  team.forEach((hero) => {
+    if (hero.powerstats.intelligence === "null")
+      hero.powerstats.intelligence = 0;
+    if (hero.powerstats.strength === "null") hero.powerstats.strength = 0;
+    if (hero.powerstats.speed === "null") hero.powerstats.speed = 0;
+    if (hero.powerstats.durability === "null") hero.powerstats.durability = 0;
+    if (hero.powerstats.power === "null") hero.powerstats.power = 0;
+    if (hero.powerstats.combat === "null") hero.powerstats.combat = 0;
+    dispatch({
+      type: POWER_STATS_TEAM,
+      payload: hero.powerstats,
+    });
+    if (
+      Number(hero.appearance.height[1].slice(0, 3)) &&
+      Number(hero.appearance.weight[1].slice(0, 3))
+    ) {
+      height += Number(hero.appearance.height[1].slice(0, 3));
+      weight += Number(hero.appearance.weight[1].slice(0, 3));
+    }
+  });
+  height = height / team.length;
+  weight = weight / team.length;
+  dispatch({
+    type: HEIGHT_WEIGHT,
+    payload: { height, weight },
+  });
+};
+
+export const resetHeroAction = () => (dispatch) => {
+  dispatch({
+    type: RESET_HERO_ACTION,
+  });
 };
